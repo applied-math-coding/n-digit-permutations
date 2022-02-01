@@ -1,0 +1,76 @@
+\documentclass[17pt]{extarticle}
+%\usepackage[paperheight=4in]{geometry}
+\usepackage[top=1cm, bottom=1cm, left=2cm, right=2cm]{geometry}
+\pagestyle{empty} %no page numbering
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}{Example}
+\newtheorem*{example*}{Example}
+\newtheorem{definition}{Definition}
+\newtheorem*{definition*}{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{condition*}{Condition}
+
+\setlength\parindent{0pt} %no indent
+
+\begin{document}
+	Let us define two families of $10$-tuples of non-negative natural numbers smaller or equal than $k$:\\
+$$I_1:=\{(p_0, \cdots, p_9)\in \{0,\cdots, k\}^{10} \ : \ p_0 + \cdots + p_9 = n \}$$
+$$I_2:=\{(p_0, \cdots, p_9)\in \{0,\cdots, k\}^{10} \ : \ p_0 + \cdots + p_9 = n \ \text{and} \ p_0< k\}$$
+\\
+With this the problem can be solved by the following formula:
+$$	\sum_{(p_0, \cdots, p_9)\in I_1}
+		\binom{n}{p_0,p_1, \cdots, p_9} 
+		- 	\sum_{(p_0, \cdots, p_9)\in I_2}
+		\binom{n-1}{p_0, p_1, \cdots, p_9} 
+$$
+\\ \\
+\textbf{Explanation}:\\
+A multinomial coefficient of the form
+$$\binom{n}{p_0,p_1, \cdots, p_9} $$
+presents the number of different ways $n$ elements can be colored with $9$ different colors
+where a color $i$ is used exactly $p_i$ times.\\
+In our example colors are presented by the digits from $0$ to $9$ and each coloring represents a 
+$n$-digit number for which the first color is not $0$.\\
+The first summand accounts for all colorings and the second for the colorings that start with $0$.
+Thus, we obtain the number of all $n$-digit numbers in request by just subtracting the latter summand from the former.\\ \\
+Multinomial coefficients can be calculated by the following formula:
+$$\binom{n}{p_1,p_2, \cdots, p_m} =\frac{n!}{p_1! p_2! \cdots p_m!}$$\\
+
+That this indeed presents the number of ways to color $n$ elements with $m$ colors by using a color
+$i$ exactly $p_i$ times, can be seen as follows:\\
+We construct recursively $n$ trees with $n$ levels by first taking each of the $n$ elements as root.
+Further, for each such tree we add $n-1$ child nodes, by using all of the $n$ elements except the one 
+being the root for the corresponding tree. We repeat this recursively for each new node, by always adding
+child nodes that consist of all the elements in the current node's level except the element of the current node.
+So the child nodes of the node $j_s$ with path to root 
+$$j_s \rightarrow  j_{s-1} \rightarrow \cdots \rightarrow j_1$$
+would be
+$$\{1, 2, \cdots, n \} - \{j_1, j_2, \cdots, j_s\}$$
+Since $p_1+p_2+\cdots +p_m=n$, each path from a root to a leaf can be interpreted as picking
+first $p_1$ elements, then $p_2$ elements, and so on. This way, two each coloring of the $n$ elements
+corresponds such a path. But this correspondence is not unique! For instance, a specific selection of
+$p_1$ elements for the color $1$, has exactly as many paths corresponding to this as there are permutations
+of $p_1$ elements. Note, for each permutation of the $p_1$ elements with color $1$ we may find a corresponding
+path that starts with this elements. The number of these permutations exactly is $p_1!$.
+Using the same arguments but applied on the $p_2$ elements colored with $2$,
+we have for each permutation of the $p_1$ elements further $p_2!$ permutations of the $p_2$ elements.
+Thus exactly $p_1!\cdot p_2!$ paths exist that represents the fixed coloring of $p_1$ and $p_2$.
+Following up this way, we find exactly $p_1!\cdot p_2!\cdots p_m!$ pathes the present a fixed coloring of
+$p_1, p_2, \cdots, p_m$.\\
+The number of pathes in the tree is easily seen to be $n!$. Altogether, this gives
+$$
+\binom{n}{p_1,p_2, \cdots, p_m}\cdot p_1! \cdot p_2! \cdots p_m! = n!
+$$
+
+\end{document}
+
+	

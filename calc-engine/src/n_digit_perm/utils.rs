@@ -1,0 +1,1 @@
+pub type Statistic = [i32; 10];
